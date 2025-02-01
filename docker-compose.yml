@@ -20,17 +20,14 @@ services:
 
   stf:
     container_name: stf
-    image: devicefarmer/stf
+    # image: devicefarmer/stf
+    image: custom/stf
     ports:
       - "7100:7100"
       - "7110:7110"
       - "7400-7500:7400-7500"
-    environment:
-      - TZ='America/Los_Angeles'
-      - RETHINKDB_PORT_28015_TCP=tcp://rethinkdb:28015
-      - STF_ADMIN_EMAIL=badrusalam760@gmail.com
-      - STF_ADMIN_NAME=Badru Salam
-      - STF_ADMIN_PASSWORD=mysecurepassword
+    env_file:
+      - .env
     restart: unless-stopped
     command: stf local --adb-host adb --public-ip 127.0.0.1 --provider-min-port 7400 --provider-max-port 7500 
 
