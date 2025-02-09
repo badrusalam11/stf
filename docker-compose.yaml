@@ -19,31 +19,24 @@ services:
       - "/dev/bus/usb:/dev/bus/usb"
     privileged: true
 
-  # stf:
-  #   container_name: stf
-  #   image: devicefarmer/stf
-  #   ports:
-  #     - "7100:7100"
-  #     - "7110:7110"
-  #     - "7400-7500:7400-7500"
-  #   environment:
-  #     - TZ='America/Los_Angeles'
-  #     - RETHINKDB_PORT_28015_TCP=tcp://rethinkdb:28015
-  #     - STF_ADMIN_EMAIL=<YOUR_EMAIL>
-  #     - STF_ADMIN_NAME=<YOUR_NAME>
-  #   restart: unless-stopped
-  #   command: stf local --adb-host adb --public-ip YOUR_IP --provider-min-port 7400 --provider-max-port 7500
+  stf:
+    container_name: stf
+    image: customstf
+    ports:
+      - "7100:7100"
+      - "7110:7110"
+      - "7400-7500:7400-7500"
+    environment:
+      - TZ='America/Los_Angeles'
+      - RETHINKDB_PORT_28015_TCP=tcp://rethinkdb:28015
+      - STF_ADMIN_EMAIL=admin@fakedomain.com
+      - STF_ADMIN_NAME=admin
+    restart: unless-stopped
+    command: stf local --adb-host adb --public-ip 127.0.0.1 --provider-min-port 7400 --provider-max-port 7500
+
   db:
     image: mysql:5.7
     restart: unless-stopped
-    environment:
-      MYSQL_DATABASE: 'db'
-      # So you don't have to use root, but you can if you like
-      MYSQL_USER: 'user'
-      # You can use whatever password you like
-      MYSQL_PASSWORD: 'password'
-      # Password for root access
-      MYSQL_ROOT_PASSWORD: 'password'
     ports:
       # <Port exposed> : <MySQL Port running inside container>
       - '3306:3306'

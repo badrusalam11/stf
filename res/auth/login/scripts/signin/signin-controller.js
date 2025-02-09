@@ -10,11 +10,11 @@ module.exports = function SignInCtrl($window, $scope, $http, CommonService) {
 
   $scope.submit = function() {
     var data = {
-      name: $scope.signin.username.$modelValue
-      , email: $scope.signin.email.$modelValue
+      username: $scope.signin.username.$modelValue
+      , password: $scope.signin.password.$modelValue
     }
     $scope.invalid = false
-    $http.post('/auth/api/v1/mock', data)
+    $http.post('/auth/api/v1/login', data)
       .then(function(response) {
         $scope.error = null
         location.replace(response.data.redirect)

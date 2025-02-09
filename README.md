@@ -4,3 +4,7 @@ This repository is forked from https://github.com/DeviceFarmer/stf/, this is the
 # How to Run
 1. run docker-compose build, then docker-compose up
 2. run stf locally: node bin/stf local --public-ip 127.0.0.1
+
+# How to run all from docker
+1. build docker image : docker build -t customstf .
+2. docker-compose up
